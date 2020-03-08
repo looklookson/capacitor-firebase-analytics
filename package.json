@@ -13,7 +13,8 @@
   "author": "Phil Merrell",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "latest"
+    "@capacitor/core": "latest",
+    "firebase": "^7.10.0"
   },
   "devDependencies": {
     "typescript": "^2.6.2"

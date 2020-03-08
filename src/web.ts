@@ -1,39 +1,47 @@
 import { WebPlugin } from '@capacitor/core';
-import { CapacitorFirebaseAnalytics } from './definitions';
+import { CapacitorFirebaseAnalyticsPlugin } from './definitions';
+import { registerWebPlugin } from '@capacitor/core';
 
-export class CapacitorFirebaseAnalyticsWeb extends WebPlugin implements CapacitorFirebaseAnalytics {
+import firebase from "firebase/app";
+
+const analytics = firebase.analytics();
+export class CapacitorFirebaseAnalyticsWeb extends WebPlugin implements CapacitorFirebaseAnalyticsPlugin {
   constructor() {
     super({
-      name: 'FirebaseAnalytics',
+      name: 'CapacitorFirebaseAnalytics',
       platforms: ['web']
     });
   }
 
-  logEvent(options: { name: string, parameters: any[]}) {
+  async logEvent(options: { name: string, parameters: object}) {
+    analytics.logEvent(options.name, options.parameters);
     return Promise.resolve();
   }
 
-  setUserProperty(options: { value: string, name: string}) {
+  async setUserProperty(options: { value: string, name: string}) {
+    analytics.setUserProperties(options);
     return Promise.resolve();
   }
 
-  setUserId(options: { userId: string }) {
+  async setUserId(options: { userId: string }) {
+    analytics.setUserId(options.userId);
     return Promise.resolve();
   }
 
-  setScreenName(options: { screenName: string, screenClassOverride: string }) {
+  async setScreenName(options: { screenName: string, screenClassOverride: string }) {
+    analytics.setCurrentScreen(options.screenName);
     return Promise.resolve();
   }
 
-  appInstanceId() {
+  async appInstanceId() {
     return Promise.resolve({ appInstanceId: ''});
   }
 
-  resetAnalyticsData() {
+  async resetAnalyticsData() {
     return Promise.resolve();
   }
 }
 
 const CapacitorFirebaseAnalytics = new CapacitorFirebaseAnalyticsWeb();
-
+registerWebPlugin(CapacitorFirebaseAnalytics);
 export { CapacitorFirebaseAnalytics };

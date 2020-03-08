@@ -1,10 +1,10 @@
 declare global {
   interface PluginRegistry {
-    CapacitorFirebaseAnalytics?: CapacitorFirebaseAnalytics;
+    CapacitorFirebaseAnalytics: CapacitorFirebaseAnalyticsPlugin;
   }
 }
 
-export interface CapacitorFirebaseAnalytics {
+export interface CapacitorFirebaseAnalyticsPlugin {
   
   logEvent(options: { name: string, parameters: object }): Promise<void>;
   setUserProperty(options: { value: string, name: string }): Promise<void>;
